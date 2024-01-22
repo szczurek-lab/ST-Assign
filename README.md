@@ -10,7 +10,7 @@ A. Geras, K. Domżał, E. Szczurek, **Joint cell type identification in spatial 
 ST-Assign can be run from the `code` directory as follows:
 
 ```
-bash  STAssign-run.sh 'input_data' 'results' 
+bash  ST-Assign-run.sh 'input_data' 'results' 
 ```
 The arguments of the bash script:
 * `input_data` - directory containing input data,
