@@ -2,7 +2,7 @@
 
 This directory contains the source code necessary to reproduce analyses presented in the manuscript:  
 
-A. Geras, K. Domżał, E. Szczurek, **Joint cell type identification in spatial transcriptomics and single-cell RNA sequencing data**, in review
+A. Geras, K. Domżał, E. Szczurek, **Joint cell type identification in spatial transcriptomics and single-cell RNA sequencing data**, in review.
 
 
 ## Running ST-Assign
