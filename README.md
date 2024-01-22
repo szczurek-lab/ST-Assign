@@ -12,6 +12,9 @@ ST-Assign can be run from the `code` directory as follows:
 ```
 bash  STAssign-run.sh 'input_data' 'results' 
 ```
+The arguments of the bash script:
+* `input_data` - directory containing input data,
+* `results` - directory dedicated to results.
 
 ## Expected input
 
