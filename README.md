@@ -30,8 +30,8 @@ ST-Assign takes as input the following files provided in the `input_data` direct
 ## Expected output
 
 ST-Assing outups:
-* XX,
-* XX.
+* `est_M.csv` - XX,
+* `res_TC.csv` - XX.
 
 ST-Assign was devoloped under:
 pakiety
