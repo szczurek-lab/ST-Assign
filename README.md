@@ -16,7 +16,7 @@ The arguments of the bash script:
 * `input_data` - directory containing input data,
 * `results` - directory dedicated to results.
 
-## Expected input
+### Expected input
 
 ST-Assign takes as input the following files provided in the `input_data` directory:
 
@@ -27,11 +27,32 @@ ST-Assign takes as input the following files provided in the `input_data` direct
 * `n_cells.csv` - estimates for the number of cells in each ST spot,
 * `rho.csv` - XXX.
 
-## Expected output
+Important: the order of genes in `C_gs.csv` and `C_gs.csv` should match the order of genes in `matB.csv`; the order of spots in the file  `C_gs.csv` should match the order in  `matB.csv` file.
 
-ST-Assing outups:
-* `est_M.csv` - XX,
-* `res_TC.csv` - XX.
+For details, see the Manual in this repository.
 
-ST-Assign was devoloped under:
-pakiety
+### Expected output
+
+ST-Assing output:
+* `est_M.csv` - cell type mixture decomposition in ST spots (size: number of spots vs. number of cell types),
+* `res_TC.csv` - cell type annotations of single cells (size: trajectories after burn in times number of cells).
+
+* For details, see the Manual in this repository.
+
+### Packages
+
+ST-Assign was developed under:
+* tensorflow ,
+* tensorflow-probability,
+* numpy ,
+* pandas ,
+* scipy.
+
+
+## Repository content
+
+* `data` - data used for the analysis presented in the paper (ST data from mouse brain and estimates for the number of cells for each spot),
+* `code` - model's implementation,
+* `example` - exemplary input files ready to run on ST-Assign,
+* `manual` - details about input and output.
+
