@@ -42,11 +42,11 @@ ST-Assing output:
 ### Packages
 
 ST-Assign was developed under:
-* tensorflow ,
-* tensorflow-probability,
-* numpy ,
-* pandas ,
-* scipy.
+* tensorflow version 2.3.0,
+* tensorflow-probability version 0.21.0,
+* numpy version 1.24.3,
+* pandas version 1.5.2,
+* scipy version 1.10.0.
 
 
 ## Repository content
