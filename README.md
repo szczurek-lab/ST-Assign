@@ -51,7 +51,7 @@ ST-Assign was developed under:
 
 ## Repository content
 
-* `data` - data used for the analysis presented in the paper (ST data from mouse brain and estimates for the number of cells for each spot),
+* `data` - data used for the analysis presented in the paper (real and simulated data used do generate results from the paper),
 * `code` - model's implementation,
 * `example` - exemplary input files ready to run on ST-Assign,
 * `manual` - details about input and output.
