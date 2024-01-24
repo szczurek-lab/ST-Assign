@@ -25,7 +25,7 @@ ST-Assign takes as input the following files provided in the `input_data` direct
 * `C_gs.csv` - ST gene expression data,
 * `C_gs.csv` - ST gene expression data,
 * `n_cells.csv` - estimates for the number of cells in each ST spot,
-* `rho.csv` - XXX.
+* `rho.csv` - cross-platform factor computed based on gene expression data.
 
 Important: the order of genes in `C_gs.csv` and `C_gs.csv` should match the order of genes in `matB.csv`; the order of spots in the file  `C_gs.csv` should match the order in  `matB.csv` file.
 
@@ -37,9 +37,9 @@ ST-Assing output:
 * `est_M.csv` - cell type mixture decomposition in ST spots (size: number of spots vs. number of cell types),
 * `res_TC.csv` - cell type annotations of single cells (size: trajectories after burn in times number of cells).
 
-* For details, see the Manual in this repository.
+For details about input and output, see the manual in this repository.
 
-### Packages
+## Packages
 
 ST-Assign was developed under:
 * tensorflow version 2.3.0,
@@ -51,7 +51,7 @@ ST-Assign was developed under:
 
 ## Repository content
 
-* `data` - data used for the analysis presented in the paper (real and simulated data used do generate results from the paper),
+* `data` - real and simulated data used do generate results from the paper,
 * `code` - model's implementation,
 * `example` - exemplary input files ready to run on ST-Assign,
 * `manual` - details about input and output.
