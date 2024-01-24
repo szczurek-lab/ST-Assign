@@ -31,7 +31,7 @@ Important: the order of genes in `C_gs.csv` and `C_gs.csv` should match the orde
 
 For details, see the Manual in this repository.
 
-### ST-Assing output:
+### ST-Assing output
 
 * `est_M.csv` - cell type mixture decomposition in ST spots (size: number of spots vs. number of cell types),
 * `res_TC.csv` - cell type annotations of single cells (size: trajectories after burn in times number of cells).
