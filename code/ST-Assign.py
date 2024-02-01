@@ -79,7 +79,7 @@ with tf.device('/device:GPU:0'):
     
 
     if number_of_cells == 'estimated':
-        n_cells =  tf.convert_to_tensor(pd.read_csv(address + "/n_cells.csv")["no.of.nuclei"].to_numpy(), dtype="float32")
+        n_cells =  tf.convert_to_tensor(pd.read_csv(address + "/n_cells.csv")["cellCount"].to_numpy(), dtype="float32")
     else:
         n_cells = tf.cast(np.tile( float(number_of_cells), nSpots), tf.float32)
     
