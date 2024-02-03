@@ -23,7 +23,7 @@ ST-Assign takes as input the following files provided in the `input_data` direct
 * `param.txt` - file containing run setting (hyperparameters, number of iterations, etc.),
 * `matB.csv` - binary matrix with prior knowledge about marker genes,
 * `C_gs.csv` - ST gene expression data,
-* `C_gs.csv` - ST gene expression data,
+* `C_gs.csv` - scRNA-seq gene expression data,
 * `n_cells.csv` - estimates for the number of cells in each ST spot,
 * `rho.csv` - cross-platform factor computed based on gene expression data.
 
