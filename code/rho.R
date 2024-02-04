@@ -1,3 +1,5 @@
+# Computing prior for rho variable
+
 INPUT_DATA <- "path to input"
 
 ST <- read.csv( paste0(INPUT_DATA, "C_gs.csv"), row.names = 1)
