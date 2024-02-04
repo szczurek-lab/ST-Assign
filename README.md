@@ -36,7 +36,7 @@ For details, see the Manual in this repository.
 * `est_M.csv` - cell type mixture decomposition in ST spots (size: number of spots vs. number of cell types),
 * `res_TC.csv` - cell type annotations of single cells (size: trajectories after burn in times number of cells).
 
-For details about input and output, see the manual in this repository.
+For details about input and output, see the `Expected input and output` file in this repository.
 
 ## Packages
 
