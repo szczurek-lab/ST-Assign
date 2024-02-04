@@ -29,7 +29,7 @@ ST-Assign takes as input the following files provided in the `input_data` direct
 
 Important: the order of genes in `C_gs.csv` and `C_gs.csv` should match the order of genes in `matB.csv`; the order of spots in the file  `C_gs.csv` should match the order in  `matB.csv` file.
 
-For details, see the Manual in this repository.
+For details, see the `Expected input and output` file in this repository.
 
 ### ST-Assing output
 
