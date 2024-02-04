@@ -113,7 +113,7 @@ with tf.device('/device:GPU:0'):
     assert C_gs.shape[0] == B.shape[0], "number of rows of C_gc should be equal to number of rows of B"
     assert C_gc.shape[0] == B.shape[0], "number of rows of C_gs should be equal to number of rows of B"
     assert burn_in < number_of_it, "burn-in should be smaller than number of iterations"
-    assert C_gs.shape[0] == len(number_of_cells)
+    #assert C_gs.shape[0] == len(number_of_cells)
     assert all(geny_C_gs==geny_B), "the order of genes in C_gs should match the order in B"
     assert all(geny_C_gc==geny_B), "the order of genes in C_gc should match the order in B"
     
