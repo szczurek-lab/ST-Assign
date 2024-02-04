@@ -1,0 +1,144 @@
+---
+title: ''
+output: html_document
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
+```{r,echo=FALSE}
+library(stringr)
+library(data.table)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+library(gtable)
+library(ggcorrplot)
+library(grDevices)
+library(magrittr)
+
+library(ggpubr)
+library(dplyr)
+library(Seurat)
+library(patchwork)
+library(scales)
+```
+
+
+
+```{r}
+INPUT_PATH <- "path to input"
+OUTPUT_PATH <- "path to output"
+```
+
+
+```{r, echo=FALSE, results=FALSE, message=FALSE, warning=FALSE}
+B <- read.csv(paste0(INPUT_PATH,"matB.csv"))
+geny <- B[,1]
+nTypes <- ncol(B)-1
+#print(nTypes)
+B <- B[-1]
+typy <- colnames(B)
+#head(B)
+ST_markers <- read.csv( paste0(INPUT_PATH,"/C_gs.csv"))
+#dim(ST_markers)
+rownames(ST_markers) <- unlist(ST_markers[1])
+ST_markers <- ST_markers[-1]
+ST_markers[1:5,1:5]
+coordinates <-  colnames(ST_markers)
+res <- str_split(coordinates, "x")
+
+x <- sapply(res, function(z) z[1])
+y <- -as.numeric(sapply(res, function(z) z[2]))
+x <- as.numeric(sapply(x,  function(z) substring(z, 2)))
+
+est_M <- as.data.frame(fread( paste0(OUTPUT_PATH, "est_M.csv")))
+colnames(est_M) <- typy
+est_M_prim <- est_M
+est_M_prim[which(est_M>15,arr.ind = TRUE)] <- 15
+
+tworz_ramke <- function(type_nr){
+  df1 <- as.data.frame(cbind(x=x,y=y, frequency=est_M_prim[,type_nr]))
+  df <- df1[order(df1$frequency, decreasing = FALSE),]
+  kolory <- c("#000080", "#484887", "#91918E", "#DADA95", "#FFF983", "#FFED57",
+              "#FFE22B", "#FFD700", "#F0993A", "#E15C74", "#D31EAE", "#BD00BD",
+              "#A100A1", "#840084", "#680068")
+  ggplot(df, aes(x =x, y = y)) + geom_point(aes(color =frequency, fill=frequency), size =2, shape=23, stroke=0.02) +
+    scale_color_gradientn(colors =kolory,breaks=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15),  limits=c(0,15.5), name="Cell count", labels=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"15+"       )) +
+    scale_fill_gradientn(colors =kolory,breaks=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15),  limits=c(0,15.5), name="Cell count", labels=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14, "15+"  )) +
+    theme_bw() + labs(x = "", y="") + ggtitle(typy[type_nr])+   coord_cartesian(clip="off")+
+    theme(plot.title = element_text(size=10, hjust = 0, vjust =-1 ), legend.position = "right", legend.key.width=unit(0.5,"cm"), legend.key.height=unit(1,"cm"),
+          legend.background = element_rect(fill='transparent'), panel.border = element_rect(fill=NA, color="black", size=0.3),
+          plot.margin = unit(c(0, 0.02, -0.5, -0.5), "cm"), axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text.y=element_blank(), axis.ticks.y=element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+          legend.text=element_text(size=10), legend.title=element_text(size=10),legend.key.size = unit(1, 'cm'))
+}
+
+Agg1 <- tworz_ramke(1);
+Agg2 <- tworz_ramke(2);
+Agg3 <- tworz_ramke(3);
+Agg4 <- tworz_ramke(4);
+Agg5 <- tworz_ramke(5);
+Agg6 <- tworz_ramke(6);
+Agg7 <- tworz_ramke(7);
+```
+
+
+### Spatial cell-type composition 
+
+```{r, fig.width=9.7, fig.height=2.1, echo=FALSE}
+ggarrange(Agg1, Agg2, Agg3,Agg4,Agg5,Agg6, Agg7, nrow=1, common.legend = TRUE, legend="right")
+```
+
+
+```{r, echo=FALSE, results=FALSE, message=FALSE}
+C_gc <- read.csv(paste0(INPUT_PATH,"C_gc.csv"), row.names = 1)
+my_clusters <- read.csv(paste0(OUTPUT_PATH,"res_TC.csv"))
+C_gc[1:5,1:5]
+```
+
+
+```{r, echo=FALSE, results=FALSE, message=FALSE}
+pbmc <- CreateSeuratObject(counts = C_gc, project = "pbmc3k", min.cells = 3)
+pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+pbmc <- NormalizeData(pbmc)
+pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
+all.genes <- rownames(pbmc)
+pbmc <- ScaleData(pbmc, features = all.genes)
+pbmc <- FindVariableFeatures(object = pbmc)
+pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc))
+pbmc <- FindNeighbors(pbmc, dims = 1:6)
+pbmc <- FindClusters(pbmc, resolution = 0.1)
+pbmc <- RunUMAP(pbmc, dims = 1:6)
+pbmc3 <- RunTSNE(pbmc, dims.use = 1:6, do.fast = T,check_duplicates = FALSE)
+
+
+most_frequent_element <- function(wektor) wektor[which.max(table(wektor))]
+x <- apply(my_clusters[20:nrow(my_clusters),], 2, most_frequent_element)
+klusty <- factor(x, levels=c(1,2,3,4,5,6,7))
+color.conserved <- c( "#cab2d6",  "#b2df8a", "#2ecc7180",  "#9ecae1", "#c51b7d", "#fdbf6f", "#ffff99")
+nazwy_typow <- colnames(read.csv(paste0(INPUT_PATH,"matB.csv")))[-1]
+klustry_ <- nazwy_typow[klusty]
+klustry_ <- factor(klustry_, levels=nazwy_typow)
+
+pbmc4 <- SetIdent(pbmc3, value = klustry_ )
+do.return = TRUE
+tsne <- TSNEPlot(pbmc4, pt.size = 0.5, shuffle=TRUE) + xlab("t-SNE 1") + ylab("t-SNE 2") + scale_color_manual(values = color.conserved ) + theme_bw()+ 
+  theme(text = element_text(size = 10), legend.position="bottom",
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.text=element_text(size=10), axis.title=element_text(size=10),  axis.text.x=element_text(size=10), axis.text.y=element_text(size=10), 
+        plot.title=element_text(size=10), axis.line = element_line( linewidth = 0.01), axis.ticks = element_line( linewidth = 0.01), legend.key.size = unit(1,"line"), 
+        legend.text=element_text(size=10)) +guides(color=guide_legend(nrow=2,byrow=TRUE, override.aes = list(size=3)))
+
+```
+
+
+### Cell-type annotation in scRNA-seq 
+
+```{r,, fig.height=4, fig.width=4, echo=FALSE}
+tsne 
+```
+
