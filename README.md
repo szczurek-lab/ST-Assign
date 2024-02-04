@@ -38,6 +38,9 @@ For details, see the Manual in this repository.
 
 For details about input and output, see the `Expected input and output` file in this repository.
 
+### Test example
+Directory `test-example` contains data exemplificatory data. After running ST-Assing on this data set, results can be visualised with the use of `Visualisation.rmd` file.
+
 ## Packages
 
 ST-Assign was developed under:
