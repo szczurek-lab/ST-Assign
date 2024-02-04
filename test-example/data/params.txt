@@ -1,0 +1,13 @@
+{"number of iterations": 5000, "burn in": 4000, 
+"number of cells": "estimated",
+"a":10, "b":1, "a_0":0.1, "b_0":1,
+"alpha": 2, 
+"step size thetas": 0.09,
+"step size lambda0": 0.5,
+"step size M": 3,
+"step size N": 2,
+"step size pg": 0.5,
+"step size rho": 5,
+"step size rho0": 1,
+"prior rho0": 3.6
+}
