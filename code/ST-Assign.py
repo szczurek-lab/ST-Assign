@@ -38,11 +38,27 @@ with tf.device('/device:GPU:0'):
         os.makedirs(address_results)
  
 
-    C_gs = pd.read_csv(address + "/C_gs.csv", index_col=0).to_numpy()
+    #C_gs = pd.read_csv(address + "/C_gs.csv", index_col=0).to_numpy()
+    #tf_C_gs = tf.convert_to_tensor(C_gs, dtype="float32")
+    #C_gc = pd.read_csv(address + "/C_gc.csv",  index_col=0).to_numpy()
+    #tf_C_gc = tf.convert_to_tensor(C_gc, dtype="float32")
+    #B = pd.read_csv(address + "/matB.csv", index_col=0).to_numpy()
+    #tf_B = tf.convert_to_tensor(B, dtype="float32")
+    
+    C_gs = pd.read_csv(address + "/C_gs.csv", index_col=0)
+    spoty = C_gs.columns
+    geny_C_gs = C_gs.index
+    C_gs = C_gs.to_numpy()
     tf_C_gs = tf.convert_to_tensor(C_gs, dtype="float32")
-    C_gc = pd.read_csv(address + "/C_gc.csv",  index_col=0).to_numpy()
+
+    C_gc = pd.read_csv(address + "/C_gc.csv",  index_col=0)
+    geny_C_gc = C_gc.index
+    C_gc = C_gc.to_numpy()
     tf_C_gc = tf.convert_to_tensor(C_gc, dtype="float32")
-    B = pd.read_csv(address + "/matB.csv", index_col=0).to_numpy()
+
+    B = pd.read_csv(address + "/matB.csv", index_col=0)
+    geny_B = B.index
+    B = B.to_numpy()
     tf_B = tf.convert_to_tensor(B, dtype="float32")
     
    
@@ -80,8 +96,26 @@ with tf.device('/device:GPU:0'):
 
     if number_of_cells == 'estimated':
         n_cells =  tf.convert_to_tensor(pd.read_csv(address + "/n_cells.csv")["cellCount"].to_numpy(), dtype="float32")
+        spotId = pd.read_csv(address + "/n_cells.csv")["spotId"]
+        assert len(n_cells)==C_gs.shape[1], "the number of spots in n_cells.csv and C_gs.csv should be the same"
+        assert all(spotId.to_numpy()==spoty.to_numpy()), "the order of spots in n_cells.csv and C_gs.csv should be the same"
     else:
         n_cells = tf.cast(np.tile( float(number_of_cells), nSpots), tf.float32)
+        
+    assert np.all((B==0) | (B==1)), "elements of B should be 0 or 1"
+    #assert len(n_cells.shape)==1, "number of cells should be one dimentional vector"
+    #n_cells_int = n_cells.astype(int)
+    #assert np.all(n_cells - n_cells_int ==0), "number of cells should be integers"
+    C_gc_int = C_gc.astype(int)
+    C_gs_int = C_gs.astype(int)
+    assert np.all(C_gc - C_gc_int ==0), "gene expression counts should be integers"
+    assert np.all(C_gs - C_gs_int ==0), "gene expression counts should be integers"
+    assert C_gs.shape[0] == B.shape[0], "number of rows of C_gc should be equal to number of rows of B"
+    assert C_gc.shape[0] == B.shape[0], "number of rows of C_gs should be equal to number of rows of B"
+    assert burn_in < number_of_it, "burn-in should be smaller than number of iterations"
+    assert C_gs.shape[0] == len(number_of_cells)
+    assert all(geny_C_gs==geny_B), "the order of genes in C_gs should match the order in B"
+    assert all(geny_C_gc==geny_B), "the order of genes in C_gc should match the order in B"
     
 
     pd.DataFrame().to_csv(address_results + "/res_M.csv", header=False, index=False)
