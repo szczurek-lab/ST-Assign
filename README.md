@@ -51,10 +51,4 @@ ST-Assign was developed under:
 * scipy version 1.10.0.
 
 
-## Repository content
-
-* `data` - real and simulated data used do generate results from the paper,
-* `code` - model's implementation,
-* `example` - exemplary input files ready to run on ST-Assign,
-* `manual` - details about input and output.
 
