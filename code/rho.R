@@ -1,5 +1,4 @@
-INPUT_DATA <- "//home//aga//Desktop//ST-Assign-repo//test-example//data//"
-OUTPUT <- "//home//aga//Desktop//ST-Assign-repo//test-example//data//"
+INPUT_DATA <- "path to input"
 
 ST <- read.csv( paste0(INPUT_DATA, "C_gs.csv"), row.names = 1)
 C_marker_genes <- read.csv(paste0(INPUT_DATA,"C_gc.csv"), row.names = 1)
@@ -20,7 +19,7 @@ rho <- function(gen){
 }
 
 res_rho <- sapply(marker_genes, rho)
-write.table(unlist(res_rho), paste0(OUTPUT, "rho.csv"),  row.names = TRUE,sep=",")
+write.table(unlist(res_rho), paste0(INPUT_DATA, "rho.csv"),  row.names = TRUE,sep=",")
 
 
 rho_0 <- function(){
