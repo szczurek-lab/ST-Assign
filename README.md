@@ -44,7 +44,8 @@ Directory `test-example` contains data exemplificatory data. After running ST-As
 ## Packages
 
 ST-Assign was developed under:
-* tensorflow version 2.3.0,
+* python version 3.9.18
+* tensorflow version 2.13.0,
 * tensorflow-probability version 0.21.0,
 * numpy version 1.24.3,
 * pandas version 1.5.2,
