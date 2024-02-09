@@ -5,8 +5,8 @@ This report was tested under:
 
 R version 4.2.1   
 rmarkdown version 2.16    
-strigr 1.5.0    
-data.table 1.14.2    
-ggplot2 3.4.4     
-ggpubr 0.6.0     
-Seurat 4.3.0      
+strigr version 1.5.0    
+data.table version 1.14.2    
+ggplot2 version 3.4.4     
+ggpubr version 0.6.0     
+Seurat version 4.3.0      
