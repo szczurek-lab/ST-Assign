@@ -1,6 +1,6 @@
 # ST-Assign
 
-This directory contains the source code necessary to reproduce analyses presented in the manuscript:  
+This directory contains the source code required to replicate analyses presented in the manuscript:
 
 A. Geras, K. Domżał, E. Szczurek, **Joint cell type identification in spatial transcriptomics and single-cell RNA sequencing data**, in review.
 
@@ -13,33 +13,33 @@ ST-Assign can be run from the `code` directory as follows:
 bash  ST-Assign-run.sh 'input_data' 'results' 
 ```
 The arguments of the bash script:
-* `input_data` - directory containing input data,
-* `results` - directory dedicated to results.
+* `input_data` - the directory containing input data,
+* `results` - the directory dedicated to results.
 
 ### Expected input
 
 ST-Assign takes as input the following files provided in the `input_data` directory:
 
-* `param.txt` - file containing run setting (hyperparameters, number of iterations, etc.),
-* `matB.csv` - binary matrix with prior knowledge about marker genes,
+* `param.txt` - a file containing run setting (hyperparameters, number of iterations, etc.),
+* `matB.csv` - a binary matrix with prior knowledge about marker genes,
 * `C_gs.csv` - ST gene expression data,
 * `C_gs.csv` - scRNA-seq gene expression data,
 * `n_cells.csv` - estimates for the number of cells in each ST spot,
 * `rho.csv` - cross-platform factor computed based on gene expression data.
 
-Important: the order of genes in `C_gs.csv` and `C_gs.csv` should match the order of genes in `matB.csv`; the order of spots in the file  `C_gs.csv` should match the order in  `matB.csv` file.
+**Note**: The order of genes in C_gs.csv and C_gs.csv should match the order of genes in matB.csv. Moreover, the order of spots in the file C_gs.csv should match the order in the matB.csv file.
 
-For details, see the `Expected input and output` file in this repository.
+Refer to the `Expected Input and Output` file in this repository for more information about input formats.
 
 ### ST-Assing output
 
 * `est_M.csv` - cell type mixture decomposition in ST spots (size: number of spots vs. number of cell types),
 * `res_TC.csv` - cell type annotations of single cells (size: trajectories after burn in times number of cells).
 
-For details about input and output, see the `Expected input and output` file in this repository.
+Refer to the `Expected Input and Output` file in this repository for more information about input and output formats.
 
 ### Test example
-Directory `test-example` contains data exemplificatory data. After running ST-Assing on this data set, results can be visualised with the use of `Visualisation.rmd` file.
+The `test-example` directory contains exemplificatory data. After running ST-Assign on this dataset, results can be visualized using the `Visualisation.rmd` file.
 
 ## Packages
 
