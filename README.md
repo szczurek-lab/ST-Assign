@@ -1,5 +1,8 @@
 # ST-Assign
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10685485.svg)](https://doi.org/10.5281/zenodo.10685485)
+
+
 This directory contains the source code required to replicate analyses presented in the manuscript:
 
 A. Geras, K. Domżał, E. Szczurek, **Joint cell type identification in spatial transcriptomics and single-cell RNA sequencing data**, in review.
